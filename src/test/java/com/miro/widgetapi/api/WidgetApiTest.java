@@ -54,7 +54,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         obj.registerModule(module);
 
         this.mockMvc
-                .perform(post("/widget").contentType(MediaType.APPLICATION_JSON).content(
+                .perform(post(WIDGETCONTROLLERPATH).contentType(MediaType.APPLICATION_JSON).content(
                         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(createWidgetRequest)))
                 .andExpect(status().is(HttpStatus.CREATED.value()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -66,7 +66,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         CreateBaseWidgetRequest createWidgetRequest = new CreateBaseWidgetRequest();
 
         this.mockMvc
-                .perform(post("/widget").contentType(MediaType.APPLICATION_JSON).content(
+                .perform(post(WIDGETCONTROLLERPATH).contentType(MediaType.APPLICATION_JSON).content(
                         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(createWidgetRequest)))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -78,7 +78,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         CreateBaseWidgetRequest createWidgetRequest = new CreateBaseWidgetRequest(10,10,0,-10,-10);
 
         this.mockMvc
-                .perform(post("/widget").contentType(MediaType.APPLICATION_JSON).content(
+                .perform(post(WIDGETCONTROLLERPATH).contentType(MediaType.APPLICATION_JSON).content(
                         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(createWidgetRequest)))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -97,7 +97,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         obj.registerModule(module);
 
         this.mockMvc
-                .perform(put("/widget").contentType(MediaType.APPLICATION_JSON).content(
+                .perform(put(WIDGETCONTROLLERPATH).contentType(MediaType.APPLICATION_JSON).content(
                         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(updateWidgetRequest)))
                 .andExpect(status().is(HttpStatus.ACCEPTED.value()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -114,7 +114,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         obj.registerModule(module);
 
         this.mockMvc
-                .perform(put("/widget")
+                .perform(put(WIDGETCONTROLLERPATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
                                 new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(updateWidgetRequest)))
@@ -127,7 +127,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         UpdateBaseWidgetRequest updateWidgetRequest = new UpdateBaseWidgetRequest("widget-id");
 
         this.mockMvc
-                .perform(put("/widget").contentType(MediaType.APPLICATION_JSON).content(
+                .perform(put(WIDGETCONTROLLERPATH).contentType(MediaType.APPLICATION_JSON).content(
                         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(updateWidgetRequest)))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -139,7 +139,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         UpdateBaseWidgetRequest updateWidgetRequest = new UpdateBaseWidgetRequest("widget-id", 10,10,0,-10,-10);
 
         this.mockMvc
-                .perform(put("/widget").contentType(MediaType.APPLICATION_JSON).content(
+                .perform(put(WIDGETCONTROLLERPATH).contentType(MediaType.APPLICATION_JSON).content(
                         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(updateWidgetRequest)))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -157,7 +157,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         obj.registerModule(module);
 
         this.mockMvc
-                .perform(get("/widget/widget-id"))
+                .perform(get(WIDGETCONTROLLERPATH+ "/widget-id"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(obj.writeValueAsString(expectedWidgetDto), false))
@@ -169,7 +169,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         when(widgetService.getWidget("widget-id")).thenThrow(new WidgetNotFoundException("message"));
 
         this.mockMvc
-                .perform(get("/widget/widget-id"))
+                .perform(get(WIDGETCONTROLLERPATH + "/widget-id"))
                 .andExpect(status().isNotFound())
                 .andReturn();
     }
@@ -191,7 +191,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         obj.registerModule(module);
 
         this.mockMvc
-                .perform(get("/widget"))
+                .perform(get(WIDGETCONTROLLERPATH))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(obj.writeValueAsString(expectedResponse), false))
@@ -207,7 +207,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         obj.registerModule(module);
 
         this.mockMvc
-                .perform(delete("/widget/widget-id"))
+                .perform(delete(WIDGETCONTROLLERPATH + "/widget-id"))
                 .andExpect(status().is(HttpStatus.NO_CONTENT.value()))
                 .andReturn();
     }
@@ -218,7 +218,7 @@ public class WidgetApiTest extends BaseWidgetTest {
         doThrow(new WidgetNotFoundException("message")).when(widgetService).deleteWidget("widget-id");
 
         this.mockMvc
-                .perform(delete("/widget/widget-id"))
+                .perform(delete(WIDGETCONTROLLERPATH + "/widget-id"))
                 .andExpect(status().isNotFound())
                 .andReturn();
     }
