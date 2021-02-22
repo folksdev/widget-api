@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  app:
+    image: 'app:latest'
+    build:
+      context: .
+    container_name: widget-api-hsql-profile
+    environment:
+      - SPRING_PROFILES_ACTIVE=hsql
+    ports:
+      - 9191:8080
