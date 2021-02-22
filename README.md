@@ -1,6 +1,9 @@
 # Widget Api Assignment - Miro
 - --
 This project provides to CRUD functionalities via `widget-api`.
+
+https://github.com/folksdev/widget-api
+
 ### Summary
 A web service to work with widgets via HTTP REST API. The service stores only widgets,
 assuming that all clients work with the same board.
